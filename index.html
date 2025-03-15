@@ -21,6 +21,39 @@
             width: 100px;
             height: 100px;
             cursor: pointer;
+            transition: transform 0.3s, filter 0.3s;
+        }
+        .team-logo:hover {
+            transform: scale(1.2);
+            filter: drop-shadow(0px 0px 10px rgba(0, 0, 255, 0.7));
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            width: 800px;
+            height: 600px;
+        }
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        .modal iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
     </style>
 </head>
@@ -28,20 +61,34 @@
     <h1>קבוצות ליגת העל בכדורסל</h1>
     <div class="teams-container">
         <!-- סמלי הקבוצות -->
-        <img src="./logo_hapoelta.png" class="team-logo" onclick="openTeamPage(1099)" alt="הפועל תל אביב">
-        <img src="./logo_maccabi.png" class="team-logo" onclick="openTeamPage(1096)" alt="מכבי תל אביב">
-        <img src="./logo_yam.png" class="team-logo" onclick="openTeamPage(1095)" alt="הפועל ירושליים">
-        <img src="./RGLogo25.png" class="team-logo" onclick="openTeamPage(1104)" alt="מכבי רמת גן">
-        <img src="./logo_natania.png" class="team-logo" onclick="openTeamPage(1105)" alt="ברק נתניה">
-        <img src="./HH LOGO 2018-19_TIGER.png" class="team-logo" onclick="openTeamPage(1092)" alt="הפועל חולון">
-        <img src="./HGG1.png" class="team-logo" onclick="openTeamPage(1108)" alt="הפועל גליל עליון">
-        <img src="./hertzliyalogo2425W.png" class="team-logo" onclick="openTeamPage(1093)" alt="הרצליה">
-        <img src="./LOGO.png" class="team-logo" onclick="openTeamPage(1098)" alt="עירוני נס ציונה">
+        <img src="./logo_hapoelta.png" class="team-logo" onclick="openTeamPage(1092)" alt="הפועל חולון">
+        <img src="./logo_maccabi.png" class="team-logo" onclick="openTeamPage(1003)" alt="מכבי תל אביב">
+        <img src="./logo_yam.png" class="team-logo" onclick="openTeamPage(1015)" alt="בני הרצליה">
+        <img src="./RGLogo25.png" class="team-logo" onclick="openTeamPage(1072)" alt="הפועל גלבוע גליל">
+        <img src="./logo_natania.png" class="team-logo" onclick="openTeamPage(1083)" alt="ברק נתניה">
+        <img src="./HH LOGO 2018-19_TIGER.png" class="team-logo" onclick="openTeamPage(1094)" alt="הפועל חיפה">
+        <img src="./HGG1.png" class="team-logo" onclick="openTeamPage(1062)" alt="הפועל גליל עליון">
+        <img src="./hertzliyalogo2425W.png" class="team-logo" onclick="openTeamPage(1056)" alt="הרצליה">
+        <img src="./LOGO.png" class="team-logo" onclick="openTeamPage(1047)" alt="עירוני נס ציונה">
+    </div>
+    
+    <div class="modal-overlay" id="overlay" onclick="closeModal()"></div>
+    <div class="modal" id="modal">
+        <iframe id="team-frame" src=""></iframe>
+        <button onclick="closeModal()">סגור</button>
     </div>
     
     <script>
         function openTeamPage(teamId) {
-            window.open(`https://www.basket.co.il/team.asp?TeamId=${teamId}`, '_blank', 'width=800,height=600');
+            document.getElementById('team-frame').src = `https://www.basket.co.il/team.asp?TeamId=${teamId}`;
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('modal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('modal').style.display = 'none';
+            document.getElementById('team-frame').src = "";
         }
     </script>
 </body>
